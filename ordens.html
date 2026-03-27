@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ordens | Sistema de Ordens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page app-shell">
+    <header class="app-header hide-print">
+      <div class="app-header-row">
+        <div class="brand">
+          <div class="brand-badge">PMR</div>
+          <div>
+            <h1>Emissão de Ordens</h1>
+            <p>Ordem de Compra e Ordem de Serviço</p>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="ordens.html" class="active">Ordens</a>
+          <a href="cadastros.html">Cadastros</a>
+          <a href="relatorios.html">Relatórios</a>
+        </nav>
+        <div class="user-box">
+          <span class="user-tag"><b data-session-user>Usuário</b></span>
+          <button class="btn btn-ghost" data-logout>Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid hide-print">
+      <section class="panel">
+        <div class="toolbar">
+          <h2>Dados Gerais da Ordem</h2>
+          <div class="actions">
+            <button id="btnLimparOrdem" class="btn btn-secondary">Limpar</button>
+            <button id="btnSalvarOrdem" class="btn btn-primary">Salvar Ordem</button>
+            <button id="btnImprimirOrdem" class="btn btn-secondary">Imprimir</button>
+          </div>
+        </div>
+
+        <div class="grid grid-4">
+          <div class="field">
+            <label for="tipoOrdem">Tipo da Ordem</label>
+            <select id="tipoOrdem">
+              <option value="COMPRA">ORDEM DE COMPRA</option>
+              <option value="SERVICO">ORDEM DE SERVIÇO</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="statusOrdem">Status</label>
+            <select id="statusOrdem">
+              <option value="RASCUNHO">RASCUNHO</option>
+              <option value="EMITIDA">EMITIDA</option>
+              <option value="CANCELADA">CANCELADA</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="dataOrdem">Data da Ordem</label>
+            <input type="date" id="dataOrdem" />
+          </div>
+          <div class="field">
+            <label for="numeroOrdemGerada">Número da Ordem</label>
+            <input type="text" id="numeroOrdemGerada" class="readonly" readonly placeholder="Gerado ao salvar" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3>Fornecedor e Licitação</h3>
+        <div class="grid grid-4">
+          <div class="field">
+            <label for="fornecedorId">Fornecedor</label>
+            <select id="fornecedorId">
+              <option value="">Selecione</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="licitacaoId">Licitação / Ata / Contrato</label>
+            <select id="licitacaoId">
+              <option value="">Selecione o fornecedor primeiro</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="razaoSocialFornecedor">Razão Social</label>
+            <input type="text" id="razaoSocialFornecedor" class="readonly" readonly />
+          </div>
+          <div class="field">
+            <label for="cnpjFornecedor">CNPJ</label>
+            <input type="text" id="cnpjFornecedor" class="readonly" readonly />
+          </div>
+          <div class="field">
+            <label for="enderecoFornecedor">Endereço</label>
+            <input type="text" id="enderecoFornecedor" class="readonly" readonly />
+          </div>
+          <div class="field">
+            <label for="cidadeFornecedor">Cidade</label>
+            <input type="text" id="cidadeFornecedor" class="readonly" readonly />
+          </div>
+          <div class="field">
+            <label for="ufFornecedor">UF</label>
+            <input type="text" id="ufFornecedor" class="readonly" readonly />
+          </div>
+          <div class="field">
+            <label for="chaveNfe">Chave NF-e</label>
+            <input type="text" id="chaveNfe" placeholder="Preenchido pelo XML ou manual" />
+          </div>
+          <div class="field">
+            <label for="numeroNf">Número NF</label>
+            <input type="text" id="numeroNf" placeholder="Preenchido pelo XML ou manual" />
+          </div>
+          <div class="field">
+            <label for="dataEmissaoNf">Data Emissão NF</label>
+            <input type="date" id="dataEmissaoNf" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3>Secretaria, Secretário e Veículo/Equipamento</h3>
+        <div class="grid grid-4">
+          <div class="field">
+            <label for="secretariaId">Secretaria</label>
+            <select id="secretariaId">
+              <option value="">Selecione</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="secretarioId">Secretário Responsável</label>
+            <select id="secretarioId">
+              <option value="">Selecione</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="veiculoId">Veículo / Equipamento</label>
+            <select id="veiculoId">
+              <option value="">Opcional</option>
+            </select>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel" id="xmlPanel">
+        <div class="toolbar">
+          <h3>Importação de XML NF-e (Ordem de Compra)</h3>
+        </div>
+        <div class="grid grid-2">
+          <div class="field">
+            <label for="xmlFile">Arquivo XML</label>
+            <input type="file" id="xmlFile" accept=".xml,text/xml,application/xml" />
+            <span class="helper-text">Ao importar, os itens e dados principais da NF-e serão preenchidos automaticamente.</span>
+          </div>
+          <div class="field">
+            <label for="xmlResumo">Resumo da Importação</label>
+            <textarea id="xmlResumo" class="readonly" readonly placeholder="Nenhum XML importado."></textarea>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h3>Itens da Ordem</h3>
+          <button id="btnAdicionarItem" class="btn btn-secondary" type="button">Adicionar Item</button>
+        </div>
+
+        <div class="table-wrap">
+          <table id="itensTable">
+            <thead>
+              <tr>
+                <th style="width:56px;">#</th>
+                <th>Código</th>
+                <th>Descrição</th>
+                <th>NCM</th>
+                <th>CFOP</th>
+                <th>Unidade</th>
+                <th>Quantidade</th>
+                <th>Valor Unitário</th>
+                <th>Valor Total</th>
+                <th>Desconto</th>
+                <th>Ação</th>
+              </tr>
+            </thead>
+            <tbody id="itensBody">
+              <tr><td colspan="11" class="empty-row">Nenhum item adicionado.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="totals-box" style="margin-top:10px;">
+          <div class="total-item">
+            <span class="total-label">Total Bruto</span>
+            <span class="total-value" id="totalBruto">R$ 0,00</span>
+          </div>
+          <div class="total-item">
+            <span class="total-label">Desconto</span>
+            <span class="total-value" id="totalDesconto">R$ 0,00</span>
+          </div>
+          <div class="total-item">
+            <span class="total-label">Total Líquido</span>
+            <span class="total-value" id="totalLiquido">R$ 0,00</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <h3>Observações</h3>
+        <textarea id="observacao" placeholder="Informações complementares da ordem"></textarea>
+        <div id="ordemError" class="error-box"></div>
+        <div id="ordemSuccess" class="success-box"></div>
+      </section>
+    </main>
+
+    <section class="panel print-sheet" id="printArea">
+      <div class="print-header">
+        <div class="print-logo">
+          <div class="print-logo-box">PMR</div>
+          <div class="print-title">
+            <h3>ESTADO DO RIO GRANDE DO NORTE</h3>
+            <h3>MUNICÍPIO DE RIACHUELO</h3>
+            <p>Prefeitura Municipal de Riachuelo/RN</p>
+          </div>
+        </div>
+        <div class="print-meta">
+          <strong id="printNumeroOrdem">ORDEM - RASCUNHO</strong>
+          <span id="printTipoOrdem">ORDEM DE COMPRA</span>
+          <span id="printStatusOrdem">STATUS: RASCUNHO</span>
+        </div>
+      </div>
+
+      <div class="print-info-grid">
+        <div class="print-info-item"><b>Fornecedor</b><span id="printFornecedor">-</span></div>
+        <div class="print-info-item"><b>CNPJ</b><span id="printCnpj">-</span></div>
+        <div class="print-info-item"><b>Data da Ordem</b><span id="printDataOrdem">-</span></div>
+        <div class="print-info-item"><b>Licitação</b><span id="printLicitacao">-</span></div>
+        <div class="print-info-item"><b>Secretaria</b><span id="printSecretaria">-</span></div>
+        <div class="print-info-item"><b>Secretário</b><span id="printSecretario">-</span></div>
+        <div class="print-info-item"><b>Veículo/Equipamento</b><span id="printVeiculo">-</span></div>
+        <div class="print-info-item"><b>Número NF</b><span id="printNumeroNf">-</span></div>
+        <div class="print-info-item"><b>Chave NF-e</b><span id="printChaveNfe">-</span></div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Descrição</th>
+              <th>Un.</th>
+              <th>Qtd.</th>
+              <th>Vlr Unit.</th>
+              <th>Vlr Total</th>
+              <th>Desc.</th>
+            </tr>
+          </thead>
+          <tbody id="printItensBody">
+            <tr><td colspan="7" class="empty-row">Nenhum item</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="totals-box" style="margin-top: 10px;">
+        <div class="total-item">
+          <span class="total-label">Total Bruto</span>
+          <span class="total-value" id="printTotalBruto">R$ 0,00</span>
+        </div>
+        <div class="total-item">
+          <span class="total-label">Desconto</span>
+          <span class="total-value" id="printTotalDesconto">R$ 0,00</span>
+        </div>
+        <div class="total-item">
+          <span class="total-label">Total Líquido</span>
+          <span class="total-value" id="printTotalLiquido">R$ 0,00</span>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:12px; border:1px solid #ccd7df;">
+        <b>Observações</b>
+        <p id="printObservacao" style="margin:6px 0 0; white-space: pre-line;">-</p>
+      </div>
+
+      <div class="print-sign">
+        <div class="print-sign-box">
+          <hr />
+          <div>Secretário Responsável</div>
+        </div>
+        <div class="print-sign-box">
+          <hr />
+          <div>Setor de Compras / Responsável</div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/ordens.js"></script>
+</body>
+</html>

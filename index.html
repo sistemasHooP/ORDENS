@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login | Sistema de Ordens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <main class="login-page">
+    <section class="login-card">
+      <aside class="login-aside">
+        <div>
+          <div class="brand-badge" style="margin-bottom:16px;">PMR</div>
+          <h1>Prefeitura de Riachuelo/RN</h1>
+          <p>Sistema profissional para emissão de Ordem de Compra e Ordem de Serviço.</p>
+        </div>
+        <p class="helper-text" style="color:#d9eef8;">
+          Segurança, rastreabilidade e controle por status para apoiar a gestão municipal.
+        </p>
+      </aside>
+
+      <div class="login-form-wrap">
+        <h2>Acesso ao Sistema</h2>
+        <p class="helper-text">Informe seu login e senha para continuar.</p>
+
+        <form id="loginForm" novalidate>
+          <div class="field">
+            <label for="login">Login</label>
+            <input type="text" id="login" name="login" autocomplete="username" required />
+          </div>
+
+          <div class="field" style="margin-top:12px;">
+            <label for="senha">Senha</label>
+            <input type="password" id="senha" name="senha" autocomplete="current-password" required />
+          </div>
+
+          <button id="btnEntrar" type="submit" class="btn btn-primary" style="margin-top:16px; width:100%;">Entrar</button>
+          <div id="loginError" class="error-box"></div>
+        </form>
+
+        <div class="login-footer-note">
+          Em caso de dificuldade de acesso, contate o administrador do sistema.
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      Auth.initLoginPage();
+    });
+  </script>
+</body>
+</html>

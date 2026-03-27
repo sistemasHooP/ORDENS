@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios | Sistema de Ordens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page app-shell">
+    <header class="app-header">
+      <div class="app-header-row">
+        <div class="brand">
+          <div class="brand-badge">PMR</div>
+          <div>
+            <h1>Relatórios de Ordens</h1>
+            <p>Consulta por tipo, data, fornecedor e status</p>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="ordens.html">Ordens</a>
+          <a href="cadastros.html">Cadastros</a>
+          <a href="relatorios.html" class="active">Relatórios</a>
+        </nav>
+        <div class="user-box">
+          <span class="user-tag"><b data-session-user>Usuário</b></span>
+          <button class="btn btn-ghost" data-logout>Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <h2>Filtros</h2>
+        <div class="grid grid-4">
+          <div class="field">
+            <label for="filtroTipo">Tipo</label>
+            <select id="filtroTipo">
+              <option value="">Todos</option>
+              <option value="COMPRA">ORDEM DE COMPRA</option>
+              <option value="SERVICO">ORDEM DE SERVIÇO</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filtroStatus">Status</label>
+            <select id="filtroStatus">
+              <option value="">Todos</option>
+              <option value="RASCUNHO">RASCUNHO</option>
+              <option value="EMITIDA">EMITIDA</option>
+              <option value="CANCELADA">CANCELADA</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filtroFornecedor">Fornecedor</label>
+            <select id="filtroFornecedor">
+              <option value="">Todos</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="filtroDataInicio">Data Inicial</label>
+            <input type="date" id="filtroDataInicio" />
+          </div>
+          <div class="field">
+            <label for="filtroDataFim">Data Final</label>
+            <input type="date" id="filtroDataFim" />
+          </div>
+        </div>
+        <div class="actions">
+          <button class="btn btn-primary" id="btnBuscarRelatorio">Buscar</button>
+          <button class="btn btn-secondary" id="btnLimparFiltros">Limpar</button>
+          <button class="btn btn-secondary" id="btnImprimirRelatorio">Imprimir</button>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h3>Resumo</h3>
+        </div>
+        <div class="kpi-grid">
+          <article class="kpi kpi-blue">
+            <span class="kpi-title">Quantidade</span>
+            <strong class="kpi-value" id="resQuantidade">0</strong>
+          </article>
+          <article class="kpi kpi-green">
+            <span class="kpi-title">Total Bruto</span>
+            <strong class="kpi-value" id="resBruto">R$ 0,00</strong>
+          </article>
+          <article class="kpi kpi-red">
+            <span class="kpi-title">Descontos</span>
+            <strong class="kpi-value" id="resDesconto">R$ 0,00</strong>
+          </article>
+          <article class="kpi kpi-dark">
+            <span class="kpi-title">Total Líquido</span>
+            <strong class="kpi-value" id="resLiquido">R$ 0,00</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Fornecedor</th>
+                <th>Status</th>
+                <th>Bruto</th>
+                <th>Desconto</th>
+                <th>Líquido</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyRelatorioOrdens">
+              <tr><td colspan="8" class="empty-row">Carregando dados...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/relatorios.js"></script>
+</body>
+</html>

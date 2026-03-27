@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cadastros | Sistema de Ordens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page app-shell">
+    <header class="app-header">
+      <div class="app-header-row">
+        <div class="brand">
+          <div class="brand-badge">PMR</div>
+          <div>
+            <h1>Cadastros Gerais</h1>
+            <p>Fornecedor, Licitação, Secretaria, Secretário e Veículo</p>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="dashboard.html">Dashboard</a>
+          <a href="ordens.html">Ordens</a>
+          <a href="cadastros.html" class="active">Cadastros</a>
+          <a href="relatorios.html">Relatórios</a>
+        </nav>
+        <div class="user-box">
+          <span class="user-tag"><b data-session-user>Usuário</b></span>
+          <button class="btn btn-ghost" data-logout>Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="panel">
+      <div class="tabs">
+        <button class="tab-btn active" data-tab="tabFornecedores">Fornecedores</button>
+        <button class="tab-btn" data-tab="tabLicitacoes">Licitações</button>
+        <button class="tab-btn" data-tab="tabSecretarias">Secretarias</button>
+        <button class="tab-btn" data-tab="tabSecretarios">Secretários</button>
+        <button class="tab-btn" data-tab="tabVeiculos">Veículos</button>
+      </div>
+
+      <section id="tabFornecedores" class="tab-panel active">
+        <h3>Cadastro de Fornecedores</h3>
+        <form id="formFornecedor" class="grid">
+          <input type="hidden" id="fornecedorIdEdit" />
+          <div class="grid grid-4">
+            <div class="field"><label>Razão Social</label><input type="text" id="forRazaoSocial" required /></div>
+            <div class="field"><label>Nome Fantasia</label><input type="text" id="forNomeFantasia" /></div>
+            <div class="field"><label>CNPJ</label><input type="text" id="forCnpj" required /></div>
+            <div class="field"><label>Inscrição Estadual</label><input type="text" id="forIe" /></div>
+            <div class="field"><label>Endereço</label><input type="text" id="forEndereco" /></div>
+            <div class="field"><label>Número</label><input type="text" id="forNumero" /></div>
+            <div class="field"><label>Cidade</label><input type="text" id="forCidade" /></div>
+            <div class="field"><label>UF</label><input type="text" id="forUf" maxlength="2" /></div>
+            <div class="field"><label>Telefone</label><input type="text" id="forTelefone" /></div>
+            <div class="field"><label>Email</label><input type="email" id="forEmail" /></div>
+            <div class="field"><label>Contato</label><input type="text" id="forContato" /></div>
+            <div class="field"><label>Ativo</label>
+              <select id="forAtivo"><option value="true">Sim</option><option value="false">Não</option></select>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Fornecedor</button>
+            <button type="button" class="btn btn-secondary" id="btnNovoFornecedor">Novo</button>
+          </div>
+        </form>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead>
+              <tr><th>Razão Social</th><th>CNPJ</th><th>Cidade/UF</th><th>Contato</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="tbodyFornecedores"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tabLicitacoes" class="tab-panel">
+        <h3>Cadastro de Licitações</h3>
+        <form id="formLicitacao" class="grid">
+          <input type="hidden" id="licitacaoIdEdit" />
+          <div class="grid grid-4">
+            <div class="field"><label>Número</label><input type="text" id="licNumero" required /></div>
+            <div class="field"><label>Modalidade</label><input type="text" id="licModalidade" required /></div>
+            <div class="field"><label>Ano</label><input type="text" id="licAno" required /></div>
+            <div class="field"><label>Fornecedor</label><select id="licFornecedorId" required></select></div>
+            <div class="field"><label>Data Início</label><input type="date" id="licDataInicio" /></div>
+            <div class="field"><label>Data Fim</label><input type="date" id="licDataFim" /></div>
+            <div class="field"><label>Status</label><input type="text" id="licStatus" value="ATIVA" /></div>
+            <div class="field"><label>Objeto</label><input type="text" id="licObjeto" /></div>
+          </div>
+          <div class="field"><label>Observação</label><textarea id="licObservacao"></textarea></div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Licitação</button>
+            <button type="button" class="btn btn-secondary" id="btnNovaLicitacao">Novo</button>
+          </div>
+        </form>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead>
+              <tr><th>Número</th><th>Ano</th><th>Modalidade</th><th>Fornecedor</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="tbodyLicitacoes"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tabSecretarias" class="tab-panel">
+        <h3>Cadastro de Secretarias</h3>
+        <form id="formSecretaria" class="grid">
+          <input type="hidden" id="secretariaIdEdit" />
+          <div class="grid grid-4">
+            <div class="field"><label>Nome</label><input type="text" id="secNome" required /></div>
+            <div class="field"><label>Sigla</label><input type="text" id="secSigla" /></div>
+            <div class="field"><label>Responsável Padrão</label><input type="text" id="secResponsavelPadrao" /></div>
+            <div class="field"><label>Ativa</label>
+              <select id="secAtiva"><option value="true">Sim</option><option value="false">Não</option></select>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Secretaria</button>
+            <button type="button" class="btn btn-secondary" id="btnNovaSecretaria">Novo</button>
+          </div>
+        </form>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead>
+              <tr><th>Nome</th><th>Sigla</th><th>Responsável Padrão</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="tbodySecretarias"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tabSecretarios" class="tab-panel">
+        <h3>Cadastro de Secretários</h3>
+        <form id="formSecretario" class="grid">
+          <input type="hidden" id="secretarioIdEdit" />
+          <div class="grid grid-4">
+            <div class="field"><label>Nome</label><input type="text" id="scrNome" required /></div>
+            <div class="field"><label>Cargo</label><input type="text" id="scrCargo" required /></div>
+            <div class="field"><label>Secretaria</label><select id="scrSecretariaId" required></select></div>
+            <div class="field"><label>CPF</label><input type="text" id="scrCpf" /></div>
+            <div class="field"><label>Email</label><input type="email" id="scrEmail" /></div>
+            <div class="field"><label>Telefone</label><input type="text" id="scrTelefone" /></div>
+            <div class="field"><label>Ativo</label>
+              <select id="scrAtivo"><option value="true">Sim</option><option value="false">Não</option></select>
+            </div>
+          </div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Secretário</button>
+            <button type="button" class="btn btn-secondary" id="btnNovoSecretario">Novo</button>
+          </div>
+        </form>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead>
+              <tr><th>Nome</th><th>Cargo</th><th>Secretaria</th><th>Contato</th><th>Status</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="tbodySecretarios"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section id="tabVeiculos" class="tab-panel">
+        <h3>Cadastro de Veículos / Equipamentos</h3>
+        <form id="formVeiculo" class="grid">
+          <input type="hidden" id="veiculoIdEdit" />
+          <div class="grid grid-4">
+            <div class="field"><label>Placa</label><input type="text" id="veiPlaca" /></div>
+            <div class="field"><label>Descrição</label><input type="text" id="veiDescricao" required /></div>
+            <div class="field"><label>Modelo</label><input type="text" id="veiModelo" /></div>
+            <div class="field"><label>Marca</label><input type="text" id="veiMarca" /></div>
+            <div class="field"><label>Ano</label><input type="text" id="veiAno" /></div>
+            <div class="field"><label>Chassi</label><input type="text" id="veiChassi" /></div>
+            <div class="field"><label>Secretaria</label><select id="veiSecretariaId"></select></div>
+            <div class="field"><label>Status</label><input type="text" id="veiStatus" value="ATIVO" /></div>
+            <div class="field"><label>Ativo</label>
+              <select id="veiAtivo"><option value="true">Sim</option><option value="false">Não</option></select>
+            </div>
+          </div>
+          <div class="field"><label>Observação</label><textarea id="veiObservacao"></textarea></div>
+          <div class="actions">
+            <button type="submit" class="btn btn-primary">Salvar Veículo</button>
+            <button type="button" class="btn btn-secondary" id="btnNovoVeiculo">Novo</button>
+          </div>
+        </form>
+        <div class="table-wrap" style="margin-top:12px;">
+          <table>
+            <thead>
+              <tr><th>Placa</th><th>Descrição</th><th>Secretaria</th><th>Status</th><th>Ativo</th><th>Ações</th></tr>
+            </thead>
+            <tbody id="tbodyVeiculos"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/cadastros.js"></script>
+</body>
+</html>

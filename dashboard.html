@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard | Sistema de Ordens</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+  <div class="page app-shell">
+    <header class="app-header hide-print">
+      <div class="app-header-row">
+        <div class="brand">
+          <div class="brand-badge">PMR</div>
+          <div>
+            <h1>Sistema de Ordens</h1>
+            <p>Prefeitura de Riachuelo/RN</p>
+          </div>
+        </div>
+        <nav class="top-nav">
+          <a href="dashboard.html" class="active">Dashboard</a>
+          <a href="ordens.html">Ordens</a>
+          <a href="cadastros.html">Cadastros</a>
+          <a href="relatorios.html">Relatórios</a>
+        </nav>
+        <div class="user-box">
+          <span class="user-tag">Olá, <b data-session-user>Usuário</b></span>
+          <button class="btn btn-ghost" data-logout>Sair</button>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section class="panel">
+        <div class="toolbar">
+          <h2>Painel Geral</h2>
+          <div class="actions">
+            <a href="ordens.html" class="btn btn-primary">Nova Ordem</a>
+            <a href="relatorios.html" class="btn btn-secondary">Ver Relatórios</a>
+          </div>
+        </div>
+        <div class="kpi-grid">
+          <article class="kpi kpi-blue">
+            <span class="kpi-title">Total de Ordens</span>
+            <strong class="kpi-value" id="kpiTotalOrdens">0</strong>
+          </article>
+          <article class="kpi kpi-green">
+            <span class="kpi-title">Ordens Emitidas</span>
+            <strong class="kpi-value" id="kpiEmitidas">0</strong>
+          </article>
+          <article class="kpi kpi-red">
+            <span class="kpi-title">Ordens Canceladas</span>
+            <strong class="kpi-value" id="kpiCanceladas">0</strong>
+          </article>
+          <article class="kpi kpi-dark">
+            <span class="kpi-title">Valor Total Líquido</span>
+            <strong class="kpi-value" id="kpiValorLiquido">R$ 0,00</strong>
+          </article>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="toolbar">
+          <h3>Últimas Ordens</h3>
+          <button id="btnAtualizarDashboard" class="btn btn-secondary">Atualizar</button>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Número</th>
+                <th>Tipo</th>
+                <th>Data</th>
+                <th>Fornecedor</th>
+                <th>Status</th>
+                <th>Total Líquido</th>
+              </tr>
+            </thead>
+            <tbody id="tbodyUltimasOrdens">
+              <tr><td colspan="6" class="empty-row">Carregando dados...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/utils.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/dashboard.js"></script>
+</body>
+</html>
